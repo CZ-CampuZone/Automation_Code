@@ -75,7 +75,7 @@ class TestClassGroup(unittest.TestCase):
                         # time.sleep(2)
                         ul_element = d.find_element(By.XPATH,data["school_list_ul_locator"])
                         li_elements = ul_element.find_elements(By.TAG_NAME,"li")
-                        li_elements[2].click()    
+                        li_elements[1].click()    
                     
                         # wait.until(EC.url_matches(data["valid_dashboard_link"]),)
                         # act_title = d.find_element(By.XPATH, data["dashboard_confirm_text_locator"]).text
@@ -87,40 +87,48 @@ class TestClassGroup(unittest.TestCase):
                         wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/div/div/ul/div/ul/li[4]")),)
                         class_group_module = d.find_element(By.XPATH, "/html/body/div/div[2]/div/div/ul/div/ul/li[4]")
                         class_group_module.click()
-    
-                        wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[1]/div[2]/button")),)
-                        class_group_add = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[1]/div[2]/button")
-                        class_group_add.click()                    
-    
-                        wait.until(EC.element_to_be_clickable((By.NAME, "Group")),)
-                        class_group_add = d.find_element(By.NAME, "Group")
-                        class_group_add.send_keys("6th")
-                    
-                        # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div[1]/div/form/div[2]/p/label/span[1]/input")),)
-                        # class_group_all = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div[1]/div/form/div[2]/p/label/span[1]/input")
-                        # class_group_all.click()
                         
-                        wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div[1]/div/form/div[2]/div/div/div")),)
-                        class_group_all = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div[1]/div/form/div[2]/div/div/div")
-                        class_group_all.click()
-                        
-                        wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/ul")),)
-                        class_group_all_ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
-                        class_group_li = class_group_all_ul.find_elements(By.TAG_NAME,"li")
-                        class_group_li[0].click()
-                        
-                        class_group_all_ul.send_keys(Keys.ESCAPE)
+                        with open('data/class_group.csv', 'r') as f:
+                            # read data
+                            reader = csv.reader(f)
+                            # Skip the header row
+                            next(reader)
                             
-                        # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div[1]/div/form/div[3]/button[1]")),)
-                        # cancel_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div[1]/div/form/div[3]/button[1]")
-                        # cancel_btn.click()
-                    
-                        wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div[1]/div/form/div[3]/button[2]")),)
-                        save_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div[1]/div/form/div[3]/button[2]")
-                        save_btn.click()
+                            # loop all values in sheet
+                            for row in reader:
+                                standard = row[0]
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[1]/div[2]/button")),)
+                                class_group_add = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[1]/div[2]/button")
+                                class_group_add.click() 
+                 
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Group")),)
+                                class_group_add = d.find_element(By.NAME, "Group")
+                                class_group_add.send_keys(standard)
+                            
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[2]/div/div/div")),)
+                                class_group_all = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[2]/div/div/div")
+                                class_group_all.click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/ul")),)
+                                class_group_all_ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
+                                class_group_li = class_group_all_ul.find_elements(By.TAG_NAME,"li")
+                                class_group_li[0].click()
+                                
+                                class_group_all_ul.send_keys(Keys.ESCAPE)
+                                    
+                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div[1]/div/form/div[3]/button[1]")),)
+                                # cancel_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div[1]/div/form/div[3]/button[1]")
+                                # cancel_btn.click()
+                            
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[3]/button[2]")),)
+                                save_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[3]/button[2]")
+                                save_btn.click()
+                                
+                                sleep(5)
 
-                        sleep(5)
-                        
+                               
+                                
                         
     # def test_add_class_group(self):
     #         d = self.driver

@@ -1,5 +1,6 @@
 import json
 import unittest
+from django.forms import Select
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By 
@@ -24,7 +25,7 @@ class TestStudents(unittest.TestCase):
 
     def setUp(self):
         # Initialize the webdriver
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(executable_path='C:\Drivers\chromedriver_win32\chromedriver.exe')
         self.driver.maximize_window()
 
     def tearDown(self):
@@ -86,49 +87,74 @@ class TestStudents(unittest.TestCase):
                     # exp_title = data["dashboard_confirm_text"]
 
                     # self.assertEqual(act_title, exp_title, f"dashboard page open failed: expected '{exp_title}', but got '{act_title}'")
-
-                    with open('data/students.csv', 'r') as f:
-                        reader = csv.reader(f)
-                        # Skip the two header row
-                        next(reader)
+                    for student_data in students["student_data"]:
+                                
+                        wait.until(EC.element_to_be_clickable((By.XPATH, student_data["student_module"])))
                         
-                        for row in reader:
-                            first_name = row[0]
-                            middle_name = row[1]
-                            last_name = row[2]
-                            student_id = row[3]
-                            aadhaar_no = row[4]
-                            skills = row[5]
-                            hobbies = row[6]
-                            awards = row[7]
-                            recognitions = row[8]
-                            email = row[9]
-                            mobile_no = row[10]
-                            emergency_no = row[11]
-                            scar = row[12]
-                            mole = row[13]
-                            medical_history = row[14]
-                            temporary_address = row[15]
-                            t_city = row[16]
-                            t_state = row[17]
-                            t_pincode = row[18]
-                            perm_address = row[19]
-                            p_city =row[20]
-                            p_state =row[21]
-                            p_pincode =row[22]
-                            sibling_name =row[23]
-                            sibling_education =row[24]
-                 
-
-                            for student_data in students["student_data"]:
-                                
-                                wait.until(EC.element_to_be_clickable((By.XPATH, student_data["student_module"])))
-                                
-                                calendar_module = d.find_element(By.XPATH, student_data["student_module"])
-                                calendar_module.click()
-                                sleep(2)
+                        calendar_module = d.find_element(By.XPATH, student_data["student_module"])
+                        calendar_module.click()
+                    
+                        with open('data/students.csv', 'r') as f:
+                            reader = csv.reader(f)
+                            # Skip the two header row
+                            next(reader)
+                            
+                            for row in reader:
+                                first_name = row[0]
+                                middle_name = row[1]
+                                last_name = row[2]
+                                student_id = row[3]
+                                aadhaar_no = row[4]
+                                skills = row[5]
+                                hobbies = row[6]
+                                awards = row[7]
+                                recognitions = row[8]
+                                email = row[9]
+                                mobile_no = row[10]
+                                emergency_no = row[11]
+                                scar = row[12]
+                                mole = row[13]
+                                medical_history = row[14]
+                                temporary_address = row[15]
+                                t_city = row[16]
+                                t_state = row[17]
+                                t_pincode = row[18]
+                                perm_address = row[19]
+                                p_city =row[20]
+                                p_state =row[21]
+                                p_pincode =row[22]
+                                # sibling_name =row[23]
+                                # sibling_education =row[24]
+                                admission_no = row[25]
+                                parent_id = row[26]
+                                annual_income = row[27]
+                                first = row[28]
+                                middle = row[29]
+                                last = row[30]
+                                father_name = row[31]
+                                father_mobile = row[32]
+                                father_mail = row[33]
+                                father_education = row[34]
+                                father_occupation = row[35]
+                                mother_name = row[36]
+                                mother_mobile = row[37]
+                                mother_gmail = row[38]
+                                mother_education = row[39]
+                                mother_occupation = row[40]
+                                guardian_name = row[41]
+                                guardian_gmail = row[42]
+                                guardian_mobile = row[43]
+                                guardian_relation = row[44]
+                                guardian_education = row[45]
+                                guardian_occupation = row[46]
+                       
+                            
                                 wait.until(EC.element_to_be_clickable((By.XPATH, student_data["add_new_student"])))
                                 
+                                actions = ActionChains(d)
+                                actions.send_keys(Keys.CONTROL + Keys.HOME).perform()
+                                
+                                sleep(2)
                                 add_new_student = d.find_element(By.XPATH, student_data["add_new_student"])
                                 add_new_student.click()
                                 
@@ -200,7 +226,7 @@ class TestStudents(unittest.TestCase):
                               
                                 Recognitions_input.send_keys(recognitions)
                                
-                                
+
                                 wait.until(EC.element_to_be_clickable((By.NAME, "Mail_id")))
                                 Mail_id_input = d.find_element(By.NAME, "Mail_id")
                               
@@ -237,7 +263,7 @@ class TestStudents(unittest.TestCase):
                                 
                                 ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
                                 li = ul.find_elements(By.TAG_NAME, "li")
-                                
+                                sleep(1)
                                 li[1].click()
                                 
                                 
@@ -282,9 +308,10 @@ class TestStudents(unittest.TestCase):
                                 
                                 ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
                                 li = ul.find_elements(By.TAG_NAME, "li")
-                                
+                                sleep(1)
                                 li[1].click()
                                 
+                                sleep(1)
                                 ul.send_keys(Keys.ESCAPE)
                                 
                                 wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[5]/div[2]/div/div/div/div/div/div[2]/div/div/div")))
@@ -296,7 +323,7 @@ class TestStudents(unittest.TestCase):
                                 
                                 ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
                                 li = ul.find_elements(By.TAG_NAME, "li")
-                                
+                                sleep(1)
                                 li[1].click()
                                 
                                 sleep(1)
@@ -328,39 +355,42 @@ class TestStudents(unittest.TestCase):
                                 for character in t_pincode:
                                     ActionChains(d).send_keys(character).perform()
                                 
-                              
-                                same_as_temp = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[1]/div[2]/label/span[1]/input")
-                                same_as_temp.click()
+                                # wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".PrivateSwitchBase-input.css-1m9pwf3")))
+                                # element = d.find_element(By.CSS_SELECTOR, ".PrivateSwitchBase-input.css-1m9pwf3")
+                                # select = Select(element)
+                                # select.select_by_visible_text("controlled")
+
+                                # same_as_temp.click()
 
                                   
-                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[1]/div/div/input")))
-                                # p_address_input = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[1]/div/div/input")
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[1]/div/div/input")))
+                                p_address_input = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[1]/div/div/input")
                                 
-                                # ActionChains(d).click(p_address_input).perform()
-                                # for character in perm_address:
-                                #     ActionChains(d).send_keys(character).perform()
+                                ActionChains(d).click(p_address_input).perform()
+                                for character in perm_address:
+                                    ActionChains(d).send_keys(character).perform()
 
                                 
-                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[2]/div/div/input")))
-                                # p_city_input = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[2]/div/div/input")
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[2]/div/div/input")))
+                                p_city_input = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[2]/div/div/input")
                               
-                                # ActionChains(d).click(p_city_input).perform()
-                                # for character in p_city:
-                                #     ActionChains(d).send_keys(character).perform()
+                                ActionChains(d).click(p_city_input).perform()
+                                for character in p_city:
+                                    ActionChains(d).send_keys(character).perform()
                                 
-                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[3]/div/div/input")))
-                                # p_state_input = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[3]/div/div/input")
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[3]/div/div/input")))
+                                p_state_input = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[3]/div/div/input")
                                 
-                                # ActionChains(d).click(p_state_input).perform()
-                                # for character in p_state:
-                                #     ActionChains(d).send_keys(character).perform()
+                                ActionChains(d).click(p_state_input).perform()
+                                for character in p_state:
+                                    ActionChains(d).send_keys(character).perform()
                                 
-                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[3]/div/div/input")))
-                                # p_pincode_input = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[3]/div/div/input")
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[4]/div/div/input")))
+                                p_pincode_input = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/div/div[4]/div/div/input")
                                 
-                                # ActionChains(d).click(p_pincode_input).perform()
-                                # for character in p_pincode:
-                                #     ActionChains(d).send_keys(character).perform()
+                                ActionChains(d).click(p_pincode_input).perform()
+                                for character in p_pincode:
+                                    ActionChains(d).send_keys(character).perform()
                                 
                                 # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[7]/div[2]/div/div/div/div/div/button")))
                                 
@@ -400,15 +430,17 @@ class TestStudents(unittest.TestCase):
                                 # for character in "anna univercity":
                                 #     ActionChains(d).send_keys(character).perform()
                                 
-                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")))
-                                # cancel_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")
-                                # cancel_btn.click()
+                                # # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")))
+                                # # cancel_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")
+                                # # cancel_btn.click()
                                 
                                 wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[2]/button")))
                                 next_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[2]/button")
                                 next_btn.click()
                                 
-                                #  --- education tab ----
+                                # sleep(10)
+                                
+                                # #  --- education tab ----
                                 # wait.until(EC.visibility_of_element_located((By.CLASS_NAME,"MuiTab-root")))
 
                                 # tabs = d.find_elements(By.CLASS_NAME,"MuiTab-root")
@@ -434,8 +466,9 @@ class TestStudents(unittest.TestCase):
                                 
                                 ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
                                 li = ul.find_elements(By.TAG_NAME, "li")
-                                
-                                li[1].click()
+                                sleep(1)
+                                li[3].click()
+                                sleep(1)
                                 
                                 wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div/div[2]/div/div/div/div/div/div[3]/div/div/div")))
                                 student_type = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div/div[2]/div/div/div/div/div/div[3]/div/div/div")
@@ -454,10 +487,10 @@ class TestStudents(unittest.TestCase):
                                 doj.send_keys("07-04-2023")
                                 
                                 wait.until(EC.element_to_be_clickable((By.NAME, "Admission_no")))
-                                Sibling_edu_input = d.find_element(By.NAME, "Admission_no")
+                                Admission_no = d.find_element(By.NAME, "Admission_no")
                                 
-                                ActionChains(d).click(Sibling_edu_input).perform()
-                                for character in "ADMSN0012":
+                                ActionChains(d).click(Admission_no).perform()
+                                for character in admission_no:
                                     ActionChains(d).send_keys(character).perform()
                                 
                                 wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div/div[2]/div/div/div/div/div/div[6]/div/div/div")))
@@ -471,8 +504,8 @@ class TestStudents(unittest.TestCase):
                                 
                                 li[1].click()
                                 
-                                wait.until(EC.element_to_be_clickable((By.XPATH, "//html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div/div[2]/div/div/div/div/div/div[7]/div/div/div")))
-                                status_type = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div/div[2]/div/div/div/div/div/div[7]/div/div/div")
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div/div[2]/div/div/div/div/div/div[6]/div/div/div")))
+                                status_type = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div/div[2]/div/div/div/div/div/div[6]/div/div/div")
                                 status_type.click()
                                 
                                 wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/ul")))
@@ -482,13 +515,13 @@ class TestStudents(unittest.TestCase):
                                 
                                 li[0].click()
                                 
-                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")))
-                                # cancel_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")
-                                # cancel_btn.click()
+                                # # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")))
+                                # # cancel_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")
+                                # # cancel_btn.click()
                                 
-                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[2]/button")))
-                                # back_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[2]/button")
-                                # back_btn.click()
+                                # # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[2]/button")))
+                                # # back_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[2]/button")
+                                # # back_btn.click()
                                 
                                 
                                 wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[3]/button")))
@@ -503,241 +536,237 @@ class TestStudents(unittest.TestCase):
 
                                 # family_tab = tabs[2].click()
                                 
-                                with open('data/students2.csv', 'r') as f:
-                                    reader = csv.reader(f)
-                                    # Skip the two header row
-                                    next(reader)
+                                # with open('data/students2.csv', 'r') as f:
+                                #     reader = csv.reader(f)
+                                #     # Skip the two header row
+                                #     next(reader)
                                     
-                                    for row in reader:
-                                        parent_id = row[1]
-                                        annual_income = row[2]
-                                        father_name = row[3]
-                                        father_mobile = row[4]
-                                        father_mail = row[5]
-                                        father_education = row[6]
-                                        father_occupation = row[7]
-                                        mother_name = row[8]
-                                        mother_mobile = row[9]
-                                        mother_gmail = row[10]
-                                        mother_education = row[11]
-                                        mother_occupation = row[12]
-                                        guardian_name = row[13]
-                                        guardian_mobile = row[14]
-                                        guardian_gmail = row[15]
-                                        guardian_education = row[16]
-                                        guardian_occupation = row[17]
-                                        notes = row[18]
+                                #     for row in reader:
+                                #         parent_id = row[1]
+                                #         annual_income = row[2]
+                                #         father_name = row[3]
+                                #         father_mobile = row[4]
+                                #         father_mail = row[5]
+                                #         father_education = row[6]
+                                #         father_occupation = row[7]
+                                #         mother_name = row[8]
+                                #         mother_mobile = row[9]
+                                #         mother_gmail = row[10]
+                                #         mother_education = row[11]
+                                #         mother_occupation = row[12]
+                                #         guardian_name = row[13]
+                                #         guardian_mobile = row[14]
+                                #         guardian_gmail = row[15]
+                                #         guardian_education = row[16]
+                                #         guardian_occupation = row[17]
+                                #         notes = row[18]
                                      
                                 
                                 
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Parent_id")))
-                                        Parent_id = d.find_element(By.NAME, "Parent_id")
-                                        
-                                        ActionChains(d).click(Parent_id).perform()
-                                        for character in parent_id:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Annual_income")))
-                                        Annual_income = d.find_element(By.NAME, "Annual_income")
-                                        
-                                        ActionChains(d).click(Annual_income).perform()
-                                        for character in annual_income:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[3]/div/div/div")))
-                                        role_group = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[3]/div/div/div")
-                                        role_group.click()
-                                        wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/ul")))
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Parent_id")))
+                                Parent_id = d.find_element(By.NAME, "Parent_id")
                                 
-                                        ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
-                                        li = ul.find_elements(By.TAG_NAME, "li")
-                                        
-                                        li[1].click()
-                                        
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[4]/div/div/div")))
-                                        status = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[4]/div/div/div")
-                                        status.click()
-                                        wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/ul")))
+                                ActionChains(d).click(Parent_id).perform()
+                                for character in parent_id:
+                                    ActionChains(d).send_keys(character).perform()
+                                    
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Annual_income")))
+                                Annual_income = d.find_element(By.NAME, "Annual_income")
                                 
-                                        ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
-                                        li = ul.find_elements(By.TAG_NAME, "li")
-                                        
-                                        li[0].click()
-                                        
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "First_name")))
-                                        first_name_new = d.find_element(By.NAME, "First_name")
-                                        
-                                        ActionChains(d).click(first_name_new).perform()
-                                        for character in "jhon":
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Middle_name")))
-                                        middle_name_new = d.find_element(By.NAME, "Middle_name")
-                                        
-                                        ActionChains(d).click(middle_name_new).perform()
-                                        for character in "wick":
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Last_name")))
-                                        last_name_new = d.find_element(By.NAME, "Last_name")
-                                        
-                                        ActionChains(d).click(last_name_new).perform()
-                                        for character in "new":
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Father_name")))
-                                        Father_name = d.find_element(By.NAME, "Father_name")
-                                        
-                                        ActionChains(d).click(Father_name).perform()
-                                        for character in father_name:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Father_dob")))
-                                        Father_dob = d.find_element(By.NAME, "Father_dob")
-                                            
-                                        Father_dob.send_keys("01-02-2023")
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Father_mob_no")))
-                                        Father_mob_no = d.find_element(By.NAME, "Father_mob_no")
-                                        
-                                        ActionChains(d).click(Father_mob_no).perform()
-                                        for character in father_mobile:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Father_mail")))
-                                        Father_mail = d.find_element(By.NAME, "Father_mail")
-                                        
-                                        ActionChains(d).click(Father_mail).perform()
-                                        for character in father_mail:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Father_education")))
-                                        Father_education = d.find_element(By.NAME, "Father_education")
-                                        
-                                        ActionChains(d).click(Father_education).perform()
-                                        for character in father_education:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Father_occupation")))
-                                        Father_occupation = d.find_element(By.NAME, "Father_occupation")
-                                        
-                                        ActionChains(d).click(Father_occupation).perform()
-                                        for character in father_occupation:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Mother_name")))
-                                        Mother_name = d.find_element(By.NAME, "Mother_name")
-                                        
-                                        ActionChains(d).click(Mother_name).perform()
-                                        for character in mother_name:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Mother_dob")))
-                                        Mother_dob = d.find_element(By.NAME, "Mother_dob")
-                                        Mother_dob.send_keys("01-02-2023")
-                                                                               
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Mother_mob_no")))
-                                        Mother_mob_no = d.find_element(By.NAME, "Mother_mob_no")
-                                        
-                                        ActionChains(d).click(Mother_mob_no).perform()
-                                        for character in mother_mobile:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Mother_mail")))
-                                        Mother_mail = d.find_element(By.NAME, "Mother_mail")
-                                        
-                                        ActionChains(d).click(Mother_mail).perform()
-                                        for character in mother_gmail:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Mother_education")))
-                                        Mother_education = d.find_element(By.NAME, "Mother_education")
-                                        
-                                        ActionChains(d).click(Mother_education).perform()
-                                        for character in mother_education:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Mother_occupation")))
-                                        Mother_occupation = d.find_element(By.NAME, "Mother_occupation")
-                                        
-                                        ActionChains(d).click(Mother_occupation).perform()
-                                        for character in mother_occupation:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_name")))
-                                        Guardian_name = d.find_element(By.NAME, "Guardian_name")
-                                        
-                                        ActionChains(d).click(Guardian_name).perform()
-                                        for character in guardian_name:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_dob")))
-                                        Guardian_dob = d.find_element(By.NAME, "Guardian_dob")
-                                        Guardian_dob.send_keys("02-02-2023")
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Gaurdian_mail")))
-                                        Gaurdian_mail = d.find_element(By.NAME, "Gaurdian_mail")
-                                        
-                                        ActionChains(d).click(Gaurdian_mail).perform()
-                                        for character in guardian_gmail:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_mob_no")))
-                                        Guardian_mob_no = d.find_element(By.NAME, "Guardian_mob_no")
-                                        
-                                        ActionChains(d).click(Guardian_mob_no).perform()
-                                        for character in guardian_mobile:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_relation")))
-                                        Guardian_relation = d.find_element(By.NAME, "Guardian_relation")
-                                        
-                                        ActionChains(d).click(Guardian_relation).perform()
-                                        for character in "uncle":
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_education")))
-                                        Guardian_education = d.find_element(By.NAME, "Guardian_education")
-                                        
-                                        ActionChains(d).click(Guardian_education).perform()
-                                        for character in guardian_education:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_occupation")))
-                                        Sibling_edu_input = d.find_element(By.NAME, "Guardian_occupation")
-                                        
-                                        ActionChains(d).click(Sibling_edu_input).perform()
-                                        for character in guardian_occupation:
-                                            ActionChains(d).send_keys(character).perform()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME, "Notes")))
-                                        Notes = d.find_element(By.NAME, "Notes")
-                                        
-                                        ActionChains(d).click(Notes).perform()
-                                        for character in notes:
-                                            ActionChains(d).send_keys(character).perform()
-                                            
-                                        # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")))
-                                        # cancel_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")
-                                        # cancel_btn.click()
-                                        
-                                        # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[2]/button")))
-                                        # back_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[2]/button")
-                                        # back_btn.click()
-                                        
-                                        # sleep(5)
-                                        wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[3]/button")))
-                                        save_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[3]/button")
-                                        save_btn.click()
-                                                
-                                        
-                                        
+                                ActionChains(d).click(Annual_income).perform()
+                                for character in annual_income:
+                                    ActionChains(d).send_keys(character).perform()
+                                                                    
+                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[5]/div/div/div")))
+                                # role_group = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[5]/div/div/div")
+                                # sleep(1)
+                                # role_group.click()
                                 
-                                        sleep(2000)
+                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/ul")))
+                                # ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
+                                # li = ul.find_elements(By.TAG_NAME, "li")
+                                
+                                # li[3].click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[5]/div/div/div")))
+                                status = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[1]/div[1]/div[2]/div/div/div/div/div[1]/div[5]/div/div/div")
+                                status.click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/ul")))
+                                ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
+                                li = ul.find_elements(By.TAG_NAME, "li")
+                                li[0].click()
+                            
+                                wait.until(EC.element_to_be_clickable((By.NAME, "First_name")))
+                                first_name_new = d.find_element(By.NAME, "First_name")
+                                
+                                ActionChains(d).click(first_name_new).perform()
+                                for character in first:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Middle_name")))
+                                middle_name_new = d.find_element(By.NAME, "Middle_name")
+                                
+                                ActionChains(d).click(middle_name_new).perform()
+                                for character in middle:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Last_name")))
+                                last_name_new = d.find_element(By.NAME, "Last_name")
+                                
+                                ActionChains(d).click(last_name_new).perform()
+                                for character in last:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Father_name")))
+                                Father_name = d.find_element(By.NAME, "Father_name")
+                                
+                                ActionChains(d).click(Father_name).perform()
+                                for character in father_name:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Father_dob")))
+                                Father_dob = d.find_element(By.NAME, "Father_dob")
+                                    
+                                Father_dob.send_keys("01-02-2023")
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Father_mob_no")))
+                                Father_mob_no = d.find_element(By.NAME, "Father_mob_no")
+                                
+                                ActionChains(d).click(Father_mob_no).perform()
+                                for character in father_mobile:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Father_mail")))
+                                Father_mail = d.find_element(By.NAME, "Father_mail")
+                                
+                                ActionChains(d).click(Father_mail).perform()
+                                for character in father_mail:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Father_education")))
+                                Father_education = d.find_element(By.NAME, "Father_education")
+                                
+                                ActionChains(d).click(Father_education).perform()
+                                for character in father_education:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Father_occupation")))
+                                Father_occupation = d.find_element(By.NAME, "Father_occupation")
+                                
+                                ActionChains(d).click(Father_occupation).perform()
+                                for character in father_occupation:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Mother_name")))
+                                Mother_name = d.find_element(By.NAME, "Mother_name")
+                                
+                                ActionChains(d).click(Mother_name).perform()
+                                for character in mother_name:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Mother_dob")))
+                                Mother_dob = d.find_element(By.NAME, "Mother_dob")
+                                Mother_dob.send_keys("01-02-2023")
+                                                                        
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Mother_mob_no")))
+                                Mother_mob_no = d.find_element(By.NAME, "Mother_mob_no")
+                                
+                                ActionChains(d).click(Mother_mob_no).perform()
+                                for character in mother_mobile:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Mother_mail")))
+                                Mother_mail = d.find_element(By.NAME, "Mother_mail")
+                                
+                                ActionChains(d).click(Mother_mail).perform()
+                                for character in mother_gmail:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Mother_education")))
+                                Mother_education = d.find_element(By.NAME, "Mother_education")
+                                
+                                ActionChains(d).click(Mother_education).perform()
+                                for character in mother_education:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME, "Mother_occupation")))
+                                Mother_occupation = d.find_element(By.NAME, "Mother_occupation")
+                                
+                                ActionChains(d).click(Mother_occupation).perform()
+                                for character in mother_occupation:
+                                    ActionChains(d).send_keys(character).perform()
+                                
+                                # wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_name")))
+                                # Guardian_name = d.find_element(By.NAME, "Guardian_name")
+                                
+                                # ActionChains(d).click(Guardian_name).perform()
+                                # for character in guardian_name:
+                                #     ActionChains(d).send_keys(character).perform()
+                                
+                                # wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_dob")))
+                                # Guardian_dob = d.find_element(By.NAME, "Guardian_dob")
+                                # Guardian_dob.send_keys("02-02-2023")
+                                
+                                # wait.until(EC.element_to_be_clickable((By.NAME, "Gaurdian_mail")))
+                                # Gaurdian_mail = d.find_element(By.NAME, "Gaurdian_mail")
+                                
+                                # ActionChains(d).click(Gaurdian_mail).perform()
+                                # for character in guardian_gmail:
+                                #     ActionChains(d).send_keys(character).perform()
+                                
+                                # wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_mob_no")))
+                                # Guardian_mob_no = d.find_element(By.NAME, "Guardian_mob_no")
+                                
+                                # ActionChains(d).click(Guardian_mob_no).perform()
+                                # for character in guardian_mobile:
+                                #     ActionChains(d).send_keys(character).perform()
+                                
+                                # wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_relation")))
+                                # Guardian_relation = d.find_element(By.NAME, "Guardian_relation")
+                                
+                                # ActionChains(d).click(Guardian_relation).perform()
+                                # for character in "uncle":
+                                #     ActionChains(d).send_keys(character).perform()
+                                
+                                # wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_education")))
+                                # Guardian_education = d.find_element(By.NAME, "Guardian_education")
+                                
+                                # ActionChains(d).click(Guardian_education).perform()
+                                # for character in guardian_education:
+                                #     ActionChains(d).send_keys(character).perform()
+                                
+                                # wait.until(EC.element_to_be_clickable((By.NAME, "Guardian_occupation")))
+                                # Guardian_occupation = d.find_element(By.NAME, "Guardian_occupation")
+                                
+                                # ActionChains(d).click(Guardian_occupation).perform()
+                                # for character in guardian_occupation:
+                                #     ActionChains(d).send_keys(character).perform()
+                                
+                                # wait.until(EC.element_to_be_clickable((By.NAME, "Notes")))
+                                # Notes = d.find_element(By.NAME, "Notes")
+                                
+                                # ActionChains(d).click(Notes).perform()
+                                # for character in "note":
+                                #     ActionChains(d).send_keys(character).perform()
+                                    
+                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")))
+                                # cancel_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[1]/nav/a/button")
+                                # cancel_btn.click()
+                                
+                                # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[2]/button")))
+                                # back_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[2]/button")
+                                # back_btn.click()
+                                
+                                # sleep(5)
+                                wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[3]/button")))
+                                save_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/form/div[2]/div[3]/button")
+                                save_btn.click()
                                         
+                                sleep(15)
+                                
+                                
     # def test_student_edit(self):
     #     d = self.driver
         

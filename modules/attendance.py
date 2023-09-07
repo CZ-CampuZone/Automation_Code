@@ -28,7 +28,6 @@ class TestAttendance(unittest.TestCase):
     def tearDown(self):
         # Close the browser
         self.driver.quit()
-
         
     def test_attendance_add(self):
 
@@ -133,5 +132,4 @@ class TestAttendance(unittest.TestCase):
                         save_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[5]/button[2]")
                         save_btn.click()
                             
-
                         # sleep(60)

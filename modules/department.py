@@ -76,11 +76,11 @@ class TestDepartment(unittest.TestCase):
     #                     # time.sleep(2)
     #                     # Wait for the page to load after login
     #                     wait.until(EC.url_matches(data["valid_dashboard_link"]))
-    #                     # wait.until(EC.visibility_of_all_elements_located((By.XPATH, data["school_list_ul_locator"])))
-    #                     # # time.sleep(2)
-    #                     # ul_element = d.find_element(By.XPATH,data["school_list_ul_locator"])
-    #                     # li_elements = ul_element.find_elements(By.TAG_NAME,"li")
-    #                     # li_elements[2].click()    
+    #                     wait.until(EC.visibility_of_all_elements_located((By.XPATH, data["school_list_ul_locator"])))
+    #                     # time.sleep(2)
+    #                     ul_element = d.find_element(By.XPATH,data["school_list_ul_locator"])
+    #                     li_elements = ul_element.find_elements(By.TAG_NAME,"li")
+    #                     li_elements[1].click()    
                     
     #                     # wait.until(EC.url_matches(data["valid_dashboard_link"]),)
     #                     # act_title = d.find_element(By.XPATH, data["dashboard_confirm_text_locator"]).text
@@ -88,6 +88,11 @@ class TestDepartment(unittest.TestCase):
     #                     # exp_title = data["dashboard_confirm_text"]
 
     #                     # self.assertEqual(act_title, exp_title, f"dashboard page open failed: expected '{exp_title}', but got '{act_title}'")
+                        
+    #                     wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/div/div/ul/div/ul/li[3]")),)
+    #                     department_module = d.find_element(By.XPATH, "/html/body/div/div[2]/div/div/ul/div/ul/li[3]")
+    #                     department_module.click()
+
     #                     with open('data/department.csv', 'r') as f:
     #                         # read data
     #                         reader = csv.reader(f)
@@ -97,14 +102,7 @@ class TestDepartment(unittest.TestCase):
     #                         # loop all values in sheet
     #                         for row in reader:
     #                             deptname = row[0]
-    #                             subname = row[1]
-    #                             subcode = row[2]
-    #                             regulation = row[3]
-
-    #                             wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/div/div/ul/div/ul/li[3]")),)
-    #                             department_module = d.find_element(By.XPATH, "/html/body/div/div[2]/div/div/ul/div/ul/li[3]")
-    #                             department_module.click()
-
+                            
     #                             wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[1]/div[2]/button")),)
     #                             sleep(2)
     #                             add_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[1]/div[2]/button")
@@ -132,45 +130,14 @@ class TestDepartment(unittest.TestCase):
                                 
     #                             wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[5]/button[2]")),)
     #                             save_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[5]/button[2]")
-    #                             save_btn.click()
+    #                             save_btn.click()    
                                 
-    #                             wait.until(EC.element_to_be_clickable((By.NAME, "Name")))
-    #                             Name = d.find_element(By.NAME, "Name")
-    #                             Name.send_keys(subname)
+    #                             wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[3]/button[1]")),)
+    #                             cancel_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[3]/button[1]")
+    #                             cancel_btn.click()
                             
-    #                             wait.until(EC.element_to_be_clickable((By.NAME, "Name")))
-    #                             Name = d.find_element(By.NAME, "Code")
-    #                             Name.send_keys(subcode)
-                                
-    #                             wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[2]/div[3]/div/div/div")))
-    #                             standard = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[2]/div[3]/div/div/div")
-    #                             standard.click()
-                                
-    #                             wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/ul")),)
-    #                             standard_ul = d.find_element(By.XPATH, "/html/body/div[2]/div[3]/ul")
-    #                             li = standard_ul.find_elements(By.TAG_NAME,"li")
-    #                             li[4].click()
-                                
-    #                             wait.until(EC.element_to_be_clickable((By.NAME, "Regulation")))
-    #                             Regulation = d.find_element(By.NAME, "Regulation")
-    #                             Regulation.send_keys(regulation)
-                                
-    #                             # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/p[2]")))
-    #                             # add_new_subject = d.find_element(By.NAME, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/p[2]")
-    #                             # add_new_subject.click()
-                                
-    #                             # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[3]/button[1]")))
-    #                             # cancel_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[3]/button[1]")
-    #                             # cancel_btn.click()
-                                
-    #                             wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[3]/button[2]")))
-    #                             save_btn = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div[1]/div/form/div[3]/button[2]")
-    #                             save_btn.click()
-                                
-                            
-    #                             sleep(5)
-                            
-                                
+    #                             sleep(3)
+                           
 
     # def test_edit_department(self):
     #         d = self.driver
@@ -320,11 +287,11 @@ class TestDepartment(unittest.TestCase):
                         # time.sleep(2)
                         # Wait for the page to load after login
                         wait.until(EC.url_matches(data["valid_dashboard_link"]))
-                        # wait.until(EC.visibility_of_all_elements_located((By.XPATH, data["school_list_ul_locator"])))
-                        # # time.sleep(2)
-                        # ul_element = d.find_element(By.XPATH,data["school_list_ul_locator"])
-                        # li_elements = ul_element.find_elements(By.TAG_NAME,"li")
-                        # li_elements[2].click()    
+                        wait.until(EC.visibility_of_all_elements_located((By.XPATH, data["school_list_ul_locator"])))
+                        # time.sleep(2)
+                        ul_element = d.find_element(By.XPATH,data["school_list_ul_locator"])
+                        li_elements = ul_element.find_elements(By.TAG_NAME,"li")
+                        li_elements[1].click()    
                     
                         # wait.until(EC.url_matches(data["valid_dashboard_link"]),)
                         # act_title = d.find_element(By.XPATH, data["dashboard_confirm_text_locator"]).text
@@ -337,10 +304,10 @@ class TestDepartment(unittest.TestCase):
                         department_module.click()
 
                         wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div/div[2]/div[1]/div/div[3]/button[2]")),)
-                        manage_btn = d.find_element(By.XPATH,"/html/body/div/div[2]/main/div[2]/div/div[2]/div/div/div[2]/div[1]/div/div[3]/button[2]")
+                        manage_btn = d.find_element(By.XPATH,"/html/body/div/div[2]/main/div[2]/div/div[2]/div/div/div[3]/div[1]/div/div[3]/button[2]")
                         manage_btn.click()
                         
-                        with open('data/department.csv', 'r') as f:
+                        with open('data/subjects.csv', 'r') as f:
                             # read data
                             reader = csv.reader(f)
                             # Skip the header row
@@ -348,10 +315,9 @@ class TestDepartment(unittest.TestCase):
                             
                             # loop all values in sheet
                             for row in reader:
-                                deptname = row[0]
-                                subname = row[1]
-                                subcode = row[2]
-                                regulation = row[3]        
+                                subname = row[0]
+                                subcode = row[1]
+                                regulation = row[2]        
                                 
                                 wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div[2]/div/div/div/div/div/div/div/button[2]")),)
                                 subject_tab = d.find_element(By.XPATH,"//html/body/div/div[2]/main/div[2]/div/div[2]/div/div/div/div/div/div/div/button[2]")
@@ -379,9 +345,10 @@ class TestDepartment(unittest.TestCase):
                                 
                                 wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/ul")),)
                                 standard = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
+                                sleep(1)
                                 li = standard.find_elements(By.TAG_NAME, "li")
                                 li[0].click()
-                                
+                                # sleep(10)
                                 wait.until(EC.element_to_be_clickable((By.NAME, "Regulation")),)
                                 Regulation = d.find_element(By.NAME,"Regulation")
                                 Regulation.send_keys(Keys.CONTROL + "a")

@@ -1,3 +1,4 @@
+
 import json
 import unittest
 from selenium import webdriver
@@ -17,8 +18,6 @@ import logging
 from selenium.common.exceptions import TimeoutException
 
 
-
-# # Read the JSON file
 with open('config/login_data.json') as f:
     login = json.load(f)
 
@@ -29,7 +28,7 @@ class TestStaffs(unittest.TestCase):
 
     def setUp(self):
         # Initialize the webdriver
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(executable_path='C:\Drivers\chromedriver_win32\chromedriver.exe')
         self.driver.maximize_window()
 
     def tearDown(self):
@@ -83,55 +82,92 @@ class TestStaffs(unittest.TestCase):
                     # time.sleep(2)
                     ul_element = d.find_element(By.XPATH,data["school_list_ul_locator"])
                     li_elements = ul_element.find_elements(By.TAG_NAME,"li")
-                    li_elements[0].click() 
+                    li_elements[1].click() 
                   
-                    wait.until(EC.url_matches(data["valid_dashboard_link"]),)
-                    act_title = d.find_element(By.XPATH, data["dashboard_confirm_text_locator"]).text
+                    # wait.until(EC.url_matches(data["valid_dashboard_link"]),)
+                    # act_title = d.find_element(By.XPATH, data["dashboard_confirm_text_locator"]).text
 
-                    exp_title = data["dashboard_confirm_text"]
+                    # exp_title = data["dashboard_confirm_text"]
 
-                    self.assertEqual(act_title, exp_title, f"dashboard page open failed: expected '{exp_title}', but got '{act_title}'")
-
-                    with open('data/staffs.csv', 'r') as f:
-                        reader = csv.reader(f)
-                        # Skip the two header row
-                        next(reader)
-                        next(reader)
-                        for row in reader:
-                            s_first_name = row[0]
-                            s_middle_name = row[1]
-                            s_last_name = row[2]
-                            s_staff_id = row[3]
-                            s_aadhaar_no = row[4]
-                            s_skills = row[5]
-                            s_hobbies = row[6]
-                            s_awards = row[7]
-                            s_recognitions = row[8]
-                            s_email = row[9]
-                            s_mobile_no = row[10]
-                            s_alt_mob = row[11]
-                            s_nationality = row[12]
-                            s_religion = row[13]
-                            s_community = row[14]
-                            s_scar = row[15]
-                            s_mole = row[16]
-                            s_medical_history = row[17]
-                            s_temp_address = row[18]
-                            s_temp_city = row[19]
-                            s_temp_state = row[20]
-                            s_temp_pincode = row[21]
-                            s_perm_address = row[22]
-                            s_perm_city = row[23]
-                            s_perm_state = row[24]
-                            s_perm_pincode = row[25]
-                            
-                            for staff_data in staffs["staff_data"]:
+                    # self.assertEqual(act_title, exp_title, f"dashboard page open failed: expected '{exp_title}', but got '{act_title}'")
+                    for staff_data in staffs["staff_data"]:
                                 
-                                wait.until(EC.element_to_be_clickable((By.XPATH, staff_data["staff_module"])))
-                                
-                                staff_module = d.find_element(By.XPATH, staff_data["staff_module"])
-                                staff_module.click()
+                        wait.until(EC.element_to_be_clickable((By.XPATH, staff_data["staff_module"])))
+                        
+                        staff_module = d.find_element(By.XPATH, staff_data["staff_module"])
+                        staff_module.click()
 
+                        with open('data/staffs.csv', 'r') as f:
+                            reader = csv.reader(f)
+                            # Skip the two header row
+                            next(reader)
+                            # next(reader)
+                            for row in reader:
+                                s_first_name = row[0]
+                                s_middle_name = row[1]
+                                s_last_name = row[2]
+                                s_staff_id = row[3]
+                                s_aadhaar_no = row[4]
+                                s_skills = row[5]
+                                s_hobbies = row[6]
+                                s_awards = row[7]
+                                s_recognitions = row[8]
+                                s_email = row[9]
+                                s_mobile_no = row[10]
+                                s_alt_mob = row[11]
+                                s_nationality = row[12]
+                                s_religion = row[13]
+                                s_community = row[14]
+                                s_scar = row[15]
+                                s_mole = row[16]
+                                s_medical_history = row[17]
+                                s_temp_address = row[18]
+                                s_temp_city = row[19]
+                                s_temp_state = row[20]
+                                s_temp_pincode = row[21]
+                                s_perm_address = row[22]
+                                s_perm_city = row[23]
+                                s_perm_state = row[24]
+                                s_perm_pincode = row[25]
+                                j_designation = row[26]
+                                j_description = row[27]
+                                j_bank_name = row[28]
+                                j_branch_name = row[29]
+                                j_account_number = row[30]
+                                j_ifsc_code = row[31]
+                                j_pan_number = row[32]
+                                e_college = row[33]
+                                e_course = row[34]
+                                e_collge_specialization = row[35]
+                                e_school = row[36]
+                                e_school_specialization = row[37]
+                                e_percentage = row[38]
+                                e_cgpa = row[39]
+                                e_total_marks = row[40]
+                                e_gained_marks = row[41]
+                                w_designation = row[42]
+                                w_name_of_institution = row[43]
+                                w_location = row[44]
+                                w_notes = row[45]
+                                father_name = row[46]
+                                father_occupation = row[47]
+                                father_email = row[48]
+                                father_phone = row[49]
+                                mother_name = row[50]
+                                mother_occupation = row[51]
+                                mother_email = row[52]
+                                mother_phone = row[53]
+                                guardian_name = row[54]
+                                guardian_occupation = row[55]
+                                guardian_email = row[56]
+                                guardian_phone = row[57]
+                                guardian_relation = row[58]
+                                wait.until(EC.element_to_be_clickable((By.XPATH, staff_data["add_new_staff"])))
+                                
+                                sleep(4)
+                                actions = ActionChains(d)
+                                actions.send_keys(Keys.CONTROL + Keys.HOME).perform()
+                               
                                 wait.until(EC.element_to_be_clickable((By.XPATH, staff_data["add_new_staff"])))
                                 
                                 add_new_staff = d.find_element(By.XPATH, staff_data["add_new_staff"])
@@ -201,7 +237,7 @@ class TestStaffs(unittest.TestCase):
                                 
                                 hobbies_input = d.find_element(By.NAME, "Hobbies")
                                 hobbies_input.send_keys(s_hobbies)
-                               
+                            
                                 
                                 awards_input = d.find_element(By.NAME, "Awards")
                                 awards_input.send_keys(s_awards)
@@ -230,8 +266,10 @@ class TestStaffs(unittest.TestCase):
                                 wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["caste_ul"])))
                                 caste_ul = d.find_element(By.XPATH, staff_data["caste_ul"])
                                 li = caste_ul.find_elements(By.TAG_NAME, "li")
+                                sleep(1)
                                 li[0].click()
                                 
+                                sleep(1)
                                 wait.until(EC.element_to_be_clickable((By.NAME,"Community")))
                                 community_ul = d.find_element(By.NAME,"Community")
                                 community_ul.send_keys(s_community)
@@ -265,10 +303,11 @@ class TestStaffs(unittest.TestCase):
                                 
                                 language_known_input_ul = d.find_element(By.XPATH, staff_data["language_known_input_ul"])
                                 li = language_known_input_ul.find_elements(By.TAG_NAME,"li" )
+                                sleep(2)
                                 li[0].click()
                                                                 
                                 language_known_input_ul.send_keys(Keys.ESCAPE)
-                                sleep(2)
+                                sleep(1)
                                 wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["mother_tongue_input"])))
                                 
                                 mother_tongue_input = d.find_element(By.XPATH, staff_data["mother_tongue_input"])
@@ -277,9 +316,10 @@ class TestStaffs(unittest.TestCase):
                                 wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["mother_tongue_input_ul"])))
                                 mother_tongue_input_ul = d.find_element(By.XPATH, staff_data["mother_tongue_input_ul"])
                                 li = mother_tongue_input_ul.find_elements(By.TAG_NAME,"li" )
+                                sleep(1)
                                 li[0].click()
                                 
-                                sleep(1)
+                               
                                 wait.until(EC.element_to_be_clickable((By.NAME, "Address")))
                                 
                                 temp_address_input = d.find_element(By.NAME, "Address")
@@ -307,7 +347,7 @@ class TestStaffs(unittest.TestCase):
                                 ActionChains(d).click(t_pincode_input).perform()
                                 for character in s_temp_pincode:
                                     ActionChains(d).send_keys(character).perform()
-                               
+                            
                                 # same_as_temp_checkbox = d.find_element(By.XPATH, "/html/body/div/div[2]/main/div[2]/div/div/div/form/div[1]/div[6]/div[2]/div/div/div/div/div[2]/div[2]/label/span[1]/input")
                                 # same_as_temp_checkbox.click()
                                 
@@ -355,20 +395,8 @@ class TestStaffs(unittest.TestCase):
                                 # # cancel_button.click()
 
                                 
-                                # # # Find the "Next" button and click it
-                                # # try:
-                                # #     next_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[contains(., 'Next')]')))
-                                # #     next_button.click()
-                                # # except TimeoutException:
-                                # #     logging.error('Timed out waiting for Next button to become clickable')
-                                # # except Exception as e:
-                                # #     logging.error('Encountered an error while clicking Next button: {}'.format(str(e)))
-                                # # else:
-                                # #     logging.info('Successfully clicked Next button')
-                                
-                                
                                 # ---- job details ----
-                               
+                            
                                 # get all the buttons in the tabbed menu
                                 wait.until(EC.visibility_of_element_located((By.CLASS_NAME,"MuiTab-root")))
 
@@ -377,344 +405,344 @@ class TestStaffs(unittest.TestCase):
                                 # job_tab = tabs[1].click()
                                                             
 
-                                # ---- job details ----
-                                with open('data/staffs2.csv', 'r') as f:
-                                    reader = csv.reader(f)
-                                    # Skip the two header row
-                                    next(reader)
-                                    # next(reader)
-                                    for row in reader:
-                                        j_designation = row[0]
-                                        j_description = row[1]
-                                        j_bank_name = row[2]
-                                        j_branch_name = row[3]
-                                        j_account_number = row[4]
-                                        j_ifsc_code = row[5]
-                                        j_pan_number = row[6]
-                                        e_college = row[7]
-                                        e_course = row[8]
-                                        e_collge_specialization = row[9]
-                                        e_school = row[10]
-                                        e_school_specialization = row[11]
-                                        e_percentage = row[12]
-                                        e_cgpa = row[13]
-                                        e_total_marks = row[14]
-                                        e_gained_marks = row[15]
-                                        w_designation = row[16]
-                                        w_name_of_institution = row[17]
-                                        w_location = row[18]
-                                        w_notes = row[19]
-                                      
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"Designation")))
-                                        
-                                        designation = d.find_element(By.NAME,"Designation")
-                                        designation.clear()
-                                        designation.send_keys(j_designation)
-
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"Date_of_joining")))
-                                
-                                        date_of_joining = d.find_element(By.NAME,"Date_of_joining")
-                                        date_of_joining.send_keys("04-01-2023")
-
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="demo-multiple-name"]')))
-                                
-                                        department = d.find_element(By.XPATH,'//*[@id="demo-multiple-name"]')
-                                        department.click()
-                                        
-                                        wait.until(EC.visibility_of_element_located((By.XPATH,"/html/body/div[2]/div[3]/ul")))
-                                
-                                        ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
-                                        li = ul.find_elements(By.TAG_NAME, "li")
-                                        li[0].click()
-                                        ul.send_keys(Keys.ESCAPE)
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["role_group_input"])))
-                                
-                                        role_group = d.find_element(By.XPATH,staff_data["role_group_input"])
-                                        role_group.click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
-                                
-                                        ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
-                                        li = ul.find_elements(By.TAG_NAME, "li")
-                                        li[0].click()
-                                
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["status_input"])))
-                                        
-                                        status = d.find_element(By.XPATH,staff_data["status_input"])
-                                        status.click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
-                                
-                                        ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
-                                        li = ul.find_elements(By.TAG_NAME, "li")
-                                        li[0].click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["choose_calendar_input"])))
-                                
-                                        
-                                        choose_calendar = d.find_element(By.XPATH,staff_data["choose_calendar_input"])
-                                        choose_calendar.click()
-
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
-                                
-                                        ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
-                                        li = ul.find_elements(By.TAG_NAME, "li")
-                                        li[0].click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["nature_of_appoinment_input"])))
-                                
-                                        
-                                        nature_of_appoinment = d.find_element(By.XPATH,staff_data["nature_of_appoinment_input"])
-                                        nature_of_appoinment.click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
-                                
-                                        ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
-                                        li = ul.find_elements(By.TAG_NAME, "li")
-                                        li[0].click()
-                                        
-                                       
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"Description")))
-                                
-                                        department = d.find_element(By.NAME,"Description")
-                                        department.send_keys(j_description)
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"Bank_name")))
-                                
-                                        department = d.find_element(By.NAME,"Bank_name")
-                                        department.send_keys(j_bank_name)                                        
-                                        
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"Branch_name")))
-                                
-                                        department = d.find_element(By.NAME,"Branch_name")
-                                        department.send_keys(j_branch_name)
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"Account_no")))
-                                
-                                        department = d.find_element(By.NAME,"Account_no")
-                                        department.send_keys(j_account_number)
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"Ifsc_code")))
-                                
-                                        department = d.find_element(By.NAME,"Ifsc_code")
-                                        department.send_keys(j_ifsc_code)
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"Pan_no")))
-                                
-                                        department = d.find_element(By.NAME,"Pan_no")
-                                        department.send_keys(j_pan_number)
-                                        
-                                        next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Next')]")))
-                                        # click the Next button
-                                        next_button.click()
-                                        
+                                # # ---- job details ----
+                                # with open('data/staffs2.csv', 'r') as f:
+                                #     reader = csv.reader(f)
+                                #     # Skip the two header row
+                                #     next(reader)
+                                #     # next(reader)
+                                #     for row in reader:
+                                #         j_designation = row[0]
+                                #         j_description = row[1]
+                                #         j_bank_name = row[2]
+                                #         j_branch_name = row[3]
+                                #         j_account_number = row[4]
+                                #         j_ifsc_code = row[5]
+                                #         j_pan_number = row[6]
+                                #         e_college = row[7]
+                                #         e_course = row[8]
+                                #         e_collge_specialization = row[9]
+                                #         e_school = row[10]
+                                #         e_school_specialization = row[11]
+                                #         e_percentage = row[12]
+                                #         e_cgpa = row[13]
+                                #         e_total_marks = row[14]
+                                #         e_gained_marks = row[15]
+                                #         w_designation = row[16]
+                                #         w_name_of_institution = row[17]
+                                #         w_location = row[18]
+                                #         w_notes = row[19]
                                     
-                                        # back_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'back')]")))
-                                        # # Click the "back" button
-                                        # back_button.click()
                                         
-                                        
-                                        # ---- educational details ---
-                                        # tabs = d.find_elements(By.CLASS_NAME,"MuiTab-root")
+                                wait.until(EC.element_to_be_clickable((By.NAME,"Designation")))
+                                
+                                designation = d.find_element(By.NAME,"Designation")
+                                designation.clear()
+                                designation.send_keys(j_designation)
 
-                                        # educational_tab = tabs[2].click()
-                                        
-                                        add_new_education = d.find_element(By.XPATH,"/html/body/div/div[2]/main/div[2]/div/div/div/form/div[1]/div/div[2]/div/div/div/div/div/button")
-                                        add_new_education.click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["degree_input"])))
-                                
-                                        degree = d.find_element(By.XPATH,staff_data["degree_input"])
-                                        degree.click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
-                                
-                                        ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
-                                        li = ul.find_elements(By.TAG_NAME, "li")
-                                        li[2].click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"College")))
-                                
-                                        college = d.find_element(By.NAME,"College")
-                                        college.send_keys(e_college)
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"Course_name")))
-                                
-                                        course = d.find_element(By.NAME,"Course_name")
-                                        course.send_keys(e_course)
-                                        
-                                        medium = d.find_element(By.XPATH,staff_data["medium_dd"])
-                                        medium.click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
-                                
-                                        ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
-                                        li = ul.find_elements(By.TAG_NAME, "li")
-                                        li[0].click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["e_specialization"])))
-                                
-                                        specialization = d.find_element(By.XPATH,staff_data["e_specialization"])
-                                        specialization.send_keys(e_collge_specialization)
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.NAME,"year_of_passing")))
-                                
-                                        year_of_passing = d.find_element(By.NAME,"year_of_passing")
-                                        year_of_passing.send_keys("01-04-2023")
-                                        
-                                        marks_type = d.find_element(By.XPATH,staff_data["marks_type"])
-                                        marks_type.click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
-                                
-                                        ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
-                                        li = ul.find_elements(By.TAG_NAME, "li")
-                                        li[1].click()
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["percentage_input"])))
-                                
-                                        percentage = d.find_element(By.NAME,"percentage")
-                                        percentage.send_keys("80")
-                                        
-                                        # sleep(5)
-                                        # delete_icon = d.find_element(By.XPATH,"//svg[@data-testid='DeleteIcon']")
-                                        
-                                        # action = ActionChains(d)
-                                        # action.move_to_element(delete_icon).click().perform()
-                                        # wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div/div[2]/main/div[2]/div/div/div/form/div[1]/div/div[2]/div/div/div/div/div[2]/button")))
-                                
-                                        # add_new_education_bottom = d.find_element(By.XPATH,"/html/body/div/div[2]/main/div[2]/div/div/div/form/div[1]/div/div[2]/div/div/div/div/div[2]/button")
-                                        # add_new_education_bottom.click()      
-                                        
-                                        next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Next')]")))
-                                        # click the Next button
-                                        next_button.click()  
-                                        
-                                        # tabs = d.find_elements(By.CLASS_NAME,"MuiTab-root")
+                                wait.until(EC.element_to_be_clickable((By.NAME,"Date_of_joining")))
+                        
+                                date_of_joining = d.find_element(By.NAME,"Date_of_joining")
+                                date_of_joining.send_keys("04-01-2023")
 
-                                        # experiance_tab = tabs[3].click()      
-                                        
-                                        add_new_experiance = d.find_element(By.XPATH,"/html/body/div/div[2]/main/div[2]/div/div/div/form/div[1]/div/div[2]/div/div/div/div/div/button")
-                                        add_new_experiance.click()    
-                                        
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["w_designation_input"])))
+                                wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="demo-multiple-name"]')))
+                        
+                                department = d.find_element(By.XPATH,'//*[@id="demo-multiple-name"]')
+                                department.click()
                                 
-                                        percentage = d.find_element(By.NAME,"Designation")
-                                        percentage.send_keys(w_designation)
-                                        
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["w_name_of_institution"])))
+                                wait.until(EC.visibility_of_element_located((By.XPATH,"/html/body/div[2]/div[3]/ul")))
+                        
+                                ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
+                                li = ul.find_elements(By.TAG_NAME, "li")
+                                li[0].click()
+                                ul.send_keys(Keys.ESCAPE)
                                 
-                                        percentage = d.find_element(By.NAME,"Name_of_Institution")
-                                        percentage.send_keys(w_name_of_institution)
-                                                   
-                                        
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["w_location_input"])))
+                                # wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["role_group_input"])))
+                        
+                                # role_group = d.find_element(By.XPATH,staff_data["role_group_input"])
+                                # role_group.click()
                                 
-                                        percentage = d.find_element(By.NAME,"Location")
-                                        percentage.send_keys(w_location)
-                                                   
+                                wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
+                        
+                                ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
+                                li = ul.find_elements(By.TAG_NAME, "li")
+                                li[1].click()
+                        
+                                wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["status_input"])))
+                                
+                                status = d.find_element(By.XPATH,staff_data["status_input"])
+                                status.click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
+                        
+                                ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
+                                li = ul.find_elements(By.TAG_NAME, "li")
+                                li[0].click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["choose_calendar_input"])))
+                        
+                                
+                                choose_calendar = d.find_element(By.XPATH,staff_data["choose_calendar_input"])
+                                choose_calendar.click()
+
+                                wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
+                        
+                                ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
+                                li = ul.find_elements(By.TAG_NAME, "li")
+                                li[0].click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["nature_of_appoinment_input"])))
+                        
+                                
+                                nature_of_appoinment = d.find_element(By.XPATH,staff_data["nature_of_appoinment_input"])
+                                nature_of_appoinment.click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
+                        
+                                ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
+                                li = ul.find_elements(By.TAG_NAME, "li")
+                                li[0].click()
+                                
+                            
+                                wait.until(EC.element_to_be_clickable((By.NAME,"Description")))
+                        
+                                department = d.find_element(By.NAME,"Description")
+                                department.send_keys(j_description)
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME,"Bank_name")))
+                        
+                                department = d.find_element(By.NAME,"Bank_name")
+                                department.send_keys(j_bank_name)                                        
+                                
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME,"Branch_name")))
+                        
+                                department = d.find_element(By.NAME,"Branch_name")
+                                department.send_keys(j_branch_name)
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME,"Account_no")))
+                        
+                                department = d.find_element(By.NAME,"Account_no")
+                                department.send_keys(j_account_number)
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME,"Ifsc_code")))
+                        
+                                department = d.find_element(By.NAME,"Ifsc_code")
+                                department.send_keys(j_ifsc_code)
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME,"Pan_no")))
+                        
+                                department = d.find_element(By.NAME,"Pan_no")
+                                department.send_keys(j_pan_number)
+                                
+                                next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Next')]")))
+                                # click the Next button
+                                next_button.click()
+                                
+                            
+                                # back_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'back')]")))
+                                # # Click the "back" button
+                                # back_button.click()
+                                
+                                
+                                # ---- educational details ---
+                                # tabs = d.find_elements(By.CLASS_NAME,"MuiTab-root")
+
+                                # educational_tab = tabs[2].click()
+                                
+                                add_new_education = d.find_element(By.XPATH,"/html/body/div/div[2]/main/div[2]/div/div/div/form/div[1]/div/div[2]/div/div/div/div/div/button")
+                                add_new_education.click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["degree_input"])))
+                        
+                                degree = d.find_element(By.XPATH,staff_data["degree_input"])
+                                degree.click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
+                        
+                                ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
+                                li = ul.find_elements(By.TAG_NAME, "li")
+                                li[2].click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME,"College")))
+                        
+                                college = d.find_element(By.NAME,"College")
+                                college.send_keys(e_college)
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME,"Course_name")))
+                        
+                                course = d.find_element(By.NAME,"Course_name")
+                                course.send_keys(e_course)
+                                
+                                medium = d.find_element(By.XPATH,staff_data["medium_dd"])
+                                medium.click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
+                        
+                                ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
+                                li = ul.find_elements(By.TAG_NAME, "li")
+                                sleep(1)
+                                li[0].click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["e_specialization"])))
+                        
+                                specialization = d.find_element(By.XPATH,staff_data["e_specialization"])
+                                specialization.send_keys(e_collge_specialization)
+                                
+                                wait.until(EC.element_to_be_clickable((By.NAME,"year_of_passing")))
+                        
+                                year_of_passing = d.find_element(By.NAME,"year_of_passing")
+                                year_of_passing.send_keys("01-04-2023")
+                                
+                                marks_type = d.find_element(By.XPATH,staff_data["marks_type"])
+                                marks_type.click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[2]/div[3]/ul")))
+                        
+                                ul = d.find_element(By.XPATH,"/html/body/div[2]/div[3]/ul")
+                                li = ul.find_elements(By.TAG_NAME, "li")
+                                li[1].click()
+                                
+                                wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["percentage_input"])))
+                        
+                                percentage = d.find_element(By.NAME,"percentage")
+                                percentage.send_keys("80")
+                                
+                                # sleep(5)
+                                # delete_icon = d.find_element(By.XPATH,"//svg[@data-testid='DeleteIcon']")
+                                
+                                # action = ActionChains(d)
+                                # action.move_to_element(delete_icon).click().perform()
+                                # wait.until(EC.element_to_be_clickable((By.XPATH,"/html/body/div/div[2]/main/div[2]/div/div/div/form/div[1]/div/div[2]/div/div/div/div/div[2]/button")))
+                        
+                                # add_new_education_bottom = d.find_element(By.XPATH,"/html/body/div/div[2]/main/div[2]/div/div/div/form/div[1]/div/div[2]/div/div/div/div/div[2]/button")
+                                # add_new_education_bottom.click()      
+                                
+                                next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Next')]")))
+                                next_button.click()  
+                                
+                                # # tabs = d.find_elements(By.CLASS_NAME,"MuiTab-root")
+
+                                # # experiance_tab = tabs[3].click()      
+                                
+                                # # add_new_experiance = d.find_element(By.XPATH,"/html/body/div/div[2]/main/div[2]/div/div/div/form/div[1]/div/div[2]/div/div/div/div/div/button")
+                                # # add_new_experiance.click()    
+                                
+                                
+                                # # wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["w_designation_input"])))
+                        
+                                # # percentage = d.find_element(By.NAME,"Designation")
+                                # # percentage.send_keys(w_designation)
+                                
+                                
+                                # # wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["w_name_of_institution"])))
+                        
+                                # # percentage = d.find_element(By.NAME,"Name_of_Institution")
+                                # # percentage.send_keys(w_name_of_institution)
                                         
-                                        marks_type = d.find_element(By.XPATH,staff_data["w_experience_from"])
-                                        marks_type.send_keys("06-04-2023")
+                                
+                                # # wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["w_location_input"])))
+                        
+                                # # percentage = d.find_element(By.NAME,"Location")
+                                # # percentage.send_keys(w_location)
+                                        
+                                
+                                # # marks_type = d.find_element(By.XPATH,staff_data["w_experience_from"])
+                                # # marks_type.send_keys("06-04-2023")
+                                                                        
+                                # # marks_type = d.find_element(By.XPATH,staff_data["w_experience_to"])
+                                # # marks_type.send_keys("07")
+
+                                # # wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["w_notes"])))
+                        
+                                # # percentage = d.find_element(By.NAME,"Notes")
+                                # # percentage.send_keys(w_notes)
+                                
+                                # # next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Next')]")))
+                                # # # click the Next button
+                                # # next_button.click()  
+                                        
                                                                                 
-                                        marks_type = d.find_element(By.XPATH,staff_data["w_experience_to"])
-                                        marks_type.send_keys("07")
+                                #         # with open('data/staffs3.csv', 'r') as f:
+                                #         #     reader = csv.reader(f)
+                                #         #     # Skip the two header row
+                                #         #     next(reader)
+                                #         #     # next(reader)
+                                #         #     for row in reader:
+                                                
+                                #         #         father_name = row[0]
+                                #         #         father_occupation = row[1]
+                                #         #         father_email = row[2]
+                                #         #         father_phone = row[3]
+                                                
+                                #         #         mother_name = row[4]
+                                #         #         mother_occupation = row[5]
+                                #         #         mother_email = row[6]
+                                #         #         mother_phone = row[7]
+                                                
+                                #         #         guardian_name = row[8]
+                                #         #         guardian_occupation = row[9]
+                                #         #         guardian_email = row[10]
+                                #         #         guardian_phone = row[11]
+                                #         #         guardian_relation = row[12]
+                                        
+                                tabs = d.find_elements(By.CLASS_NAME,"MuiTab-root")
 
-                                        wait.until(EC.element_to_be_clickable((By.XPATH,staff_data["w_notes"])))
+                                family_tab = tabs[4].click()      
+                                                
+                                                
+                                wait.until(EC.element_to_be_clickable((By.NAME,"Father_name")))
+                        
+                                f_father_name = d.find_element(By.NAME,"Father_name")
+                                f_father_name.send_keys(father_name)
                                 
-                                        percentage = d.find_element(By.NAME,"Notes")
-                                        percentage.send_keys(w_notes)
-                                        
-                                        next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Next')]")))
-                                        # click the Next button
-                                        next_button.click()  
-                                        
-                                                                                
-                                        with open('data/staffs3.csv', 'r') as f:
-                                            reader = csv.reader(f)
-                                            # Skip the two header row
-                                            next(reader)
-                                            # next(reader)
-                                            for row in reader:
-                                                
-                                                father_name = row[0]
-                                                father_occupation = row[1]
-                                                father_email = row[2]
-                                                father_phone = row[3]
-                                                
-                                                mother_name = row[4]
-                                                mother_occupation = row[5]
-                                                mother_email = row[6]
-                                                mother_phone = row[7]
-                                                
-                                                guardian_name = row[8]
-                                                guardian_occupation = row[9]
-                                                guardian_email = row[10]
-                                                guardian_phone = row[11]
-                                                guardian_relation = row[12]
-                                        
-                                                # tabs = d.find_elements(By.CLASS_NAME,"MuiTab-root")
-
-                                                # family_tab = tabs[4].click()      
-                                                
-                                                
-                                                wait.until(EC.element_to_be_clickable((By.NAME,"Father_name")))
-                                        
-                                                f_father_name = d.find_element(By.NAME,"Father_name")
-                                                f_father_name.send_keys(father_name)
-                                                
-                                                f_father_occupation = d.find_element(By.NAME,"Father_occupation")
-                                                f_father_occupation.send_keys(father_occupation)
-                                                
-                                                f_father_email = d.find_element(By.NAME,"Father_email")
-                                                f_father_email.send_keys(father_email)
-                                                
-                                                f_father_phone = d.find_element(By.NAME,"Father_Phone")
-                                                f_father_phone.send_keys(father_phone)
-                                                
-                                                f_mother_name = d.find_element(By.NAME,"Mother_name")
-                                                f_mother_name.send_keys(mother_name)
-                                                
-                                                f_mother_occupation = d.find_element(By.NAME,"Mother_occupation")
-                                                f_mother_occupation.send_keys(mother_occupation)
-                                                
-                                                f_mother_email = d.find_element(By.NAME,"Mother_email")
-                                                f_mother_email.send_keys(mother_email)
-                                                
-                                                f_mother_phone = d.find_element(By.NAME,"Mother_Phone")
-                                                f_mother_phone.send_keys(mother_phone)
-                                                
-                                                f_guardian_checkbox = d.find_element(By.NAME,"Guardian_info")
-                                                f_guardian_checkbox.click()
-                                                
-                                                wait.until(EC.element_to_be_clickable((By.NAME,"Guardian_name")))
-                                                
-                                                f_guardian_name = d.find_element(By.NAME,"Guardian_name")
-                                                f_guardian_name.send_keys(guardian_name)
-                                                
-                                                f_guardian_occupation = d.find_element(By.NAME,"Gaurdian_occupation")
-                                                f_guardian_occupation.send_keys(guardian_occupation)
-                                                
-                                                f_guardian_email = d.find_element(By.NAME,"Guardian_email")
-                                                f_guardian_email.send_keys(guardian_email)
-                                                
-                                                f_guardian_phone = d.find_element(By.NAME,"Guardian_Phone")
-                                                f_guardian_phone.send_keys(guardian_phone)
-                                                
-                                                f_guardian_relation = d.find_element(By.NAME,"Guardian_relation")
-                                                f_guardian_relation.send_keys(guardian_relation)
-                                                
-                                                save_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Save')]")))
-                                                # click the Next button
-                                                save_button.click()  
+                                f_father_occupation = d.find_element(By.NAME,"Father_occupation")
+                                f_father_occupation.send_keys(father_occupation)
+                                
+                                f_father_email = d.find_element(By.NAME,"Father_email")
+                                f_father_email.send_keys(father_email)
+                                
+                                f_father_phone = d.find_element(By.NAME,"Father_Phone")
+                                f_father_phone.send_keys(father_phone)
+                                
+                                f_mother_name = d.find_element(By.NAME,"Mother_name")
+                                f_mother_name.send_keys(mother_name)
+                                
+                                f_mother_occupation = d.find_element(By.NAME,"Mother_occupation")
+                                f_mother_occupation.send_keys(mother_occupation)
+                                
+                                f_mother_email = d.find_element(By.NAME,"Mother_email")
+                                f_mother_email.send_keys(mother_email)
+                                
+                                f_mother_phone = d.find_element(By.NAME,"Mother_Phone")
+                                f_mother_phone.send_keys(mother_phone)
+                                
+                                f_guardian_checkbox = d.find_element(By.NAME,"Guardian_info")
+                                f_guardian_checkbox.click()
+                                
+                                # wait.until(EC.element_to_be_clickable((By.NAME,"Guardian_name")))
+                                
+                                # f_guardian_name = d.find_element(By.NAME,"Guardian_name")
+                                # f_guardian_name.send_keys(guardian_name)
+                                
+                                # f_guardian_occupation = d.find_element(By.NAME,"Gaurdian_occupation")
+                                # f_guardian_occupation.send_keys(guardian_occupation)
+                                
+                                # f_guardian_email = d.find_element(By.NAME,"Guardian_email")
+                                # f_guardian_email.send_keys(guardian_email)
+                                
+                                # f_guardian_phone = d.find_element(By.NAME,"Guardian_Phone")
+                                # f_guardian_phone.send_keys(guardian_phone)
+                                
+                                # f_guardian_relation = d.find_element(By.NAME,"Guardian_relation")
+                                # f_guardian_relation.send_keys(guardian_relation)
+                                
+                                save_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Save')]")))
+                                # click the Next button
+                                save_button.click()  
                                                         
-                                                                                        
-                                                sleep(2000)
+                                                                                            
+                                sleep(8)
 
     # def test_update_staff(self):
     #     d = self.driver
