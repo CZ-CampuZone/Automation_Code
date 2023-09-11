@@ -3,7 +3,7 @@ import json
 import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By 
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
@@ -16,7 +16,7 @@ import pdb
 from time import sleep
 import logging
 from selenium.common.exceptions import TimeoutException
-
+from selenium.webdriver.chrome.service import Service
 
 with open('config/login_data.json') as f:
     login = json.load(f)
@@ -24,11 +24,16 @@ with open('config/login_data.json') as f:
 with open('config/staffs.json') as f:
     staffs = json.load(f)
 
+
 class TestStaffs(unittest.TestCase):
 
     def setUp(self):
         # Initialize the webdriver
-        self.driver = webdriver.Chrome(executable_path='C:\Drivers\chromedriver_win32\chromedriver.exe')
+        service = Service('C:\Drivers\chromedriver_win32\chromedriver.exe')
+
+        # Create the WebDriver instance using the Service object
+        self.driver = webdriver.Chrome(service=service)
+
         self.driver.maximize_window()
 
     def tearDown(self):

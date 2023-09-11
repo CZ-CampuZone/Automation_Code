@@ -19,7 +19,7 @@ colorama.init()
 # from modules.department import TestDepartment
 # from modules.class_group import TestClassGroup
 # from modules.calendar import TestCalendar
-# from modules.staffs import TestStaffs
+from modules.staffs import TestStaffs
 # from modules.students import TestStudents
 # from modules.classroom import TestClassRoom
 # from modules.lessonplan import TestLessonPlan
@@ -63,7 +63,7 @@ colorama.init()
   
 # test module one by one           
 test_functions = [
-    TestLogin, 
+    # TestLogin, 
     # TestNews,
     # TestProfile,
     # TestRegionalSchool,
@@ -71,7 +71,7 @@ test_functions = [
     # TestDepartment,
     # TestClassGroup,
     # TestCalendar,
-    # TestStaffs,
+    TestStaffs,
     # TestStudents,
     # TestClassRoom,
     # TestLessonPlan,
